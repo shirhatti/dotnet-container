@@ -6,6 +6,7 @@
     <RootNamespace>dotnet_oci</RootNamespace>
     <PackAsTool>true</PackAsTool>
     <VersionPrefix>0.1.0</VersionPrefix>
+    <NullableContextOptions>enable</NullableContextOptions>
     <VersionSuffix>build$([System.DateTime]::Now.ToString('yyyyMMdd-HHmm'))</VersionSuffix>
     <!--Workaround for https://github.com/dotnet/cli/issues/11299-->
     <Useapphost>false</Useapphost>
