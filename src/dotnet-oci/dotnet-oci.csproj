@@ -5,14 +5,24 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>dotnet_oci</RootNamespace>
     <PackAsTool>true</PackAsTool>
-    <VersionPrefix>0.1.0</VersionPrefix>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)..\..\artifacts\</PackageOutputPath>
     <NullableContextOptions>enable</NullableContextOptions>
+    <VersionPrefix>0.1.0</VersionPrefix>
     <VersionSuffix>build$([System.DateTime]::Now.ToString('yyyyMMdd-HHmm'))</VersionSuffix>
     <!--Workaround for https://github.com/dotnet/cli/issues/11299-->
     <Useapphost>false</Useapphost>
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Oras assets (for Enigma) -->
+    <None Include="../../binaries/oras/**/*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" Visible="false" />
+
+    <!-- Include targets that we need to invoke -->
+    <None Include="assets/**/*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dotnet.Oci.MSBuildTasks\Dotnet.Oci.MSBuildTasks.csproj" />
     <PackageReference Include="System.CommandLine.Experimental" Version="0.2.0-alpha.19174.3" />
   </ItemGroup>
 

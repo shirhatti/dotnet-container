@@ -30,7 +30,7 @@ namespace dotnet_oci
 
             var requestPath = new UriBuilder("https", registry, 443, "v2").Uri;
             var request = new HttpRequestMessage(HttpMethod.Get, requestPath);
-            request.AddBasicAuthorizationHeader(username!, password!);
+            request.AddBasicAuthorizationHeader(username, password);
 
             var statusCode = (await new HttpClient().SendAsync(request)).StatusCode;
 

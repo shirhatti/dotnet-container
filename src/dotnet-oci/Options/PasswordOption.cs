@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.CommandLine;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace dotnet_oci.Options
@@ -16,7 +17,7 @@ namespace dotnet_oci.Options
                         Name = "password",
                         Arity = ArgumentArity.ZeroOrOne
                     });
-        public static void EnsureNotNull(ref string? password)
+        public static void EnsureNotNull([EnsuresNotNull]ref string? password)
         {
             if (password == null)
             {

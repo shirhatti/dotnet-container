@@ -2,6 +2,10 @@
 using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using Process = System.Diagnostics.Process;
 
 namespace dotnet_oci
 {
@@ -21,14 +25,60 @@ namespace dotnet_oci
             isHidden: true
             );
 
-        private static void PushAsync(IConsole arg1, string? registry, string? username, string? password, string? repository)
+        private static void PushAsync(IConsole console, string? registry, string? username, string? password, string? repository)
         {
             RegistryOption.EnsureNotNullorMalformed(registry);
             UsernameOption.EnsureNotNull(ref username);
             PasswordOption.EnsureNotNull(ref password);
             RepositoryOption.EnsureNotNullorMalformed(repository);
 
-            throw new NotImplementedException();
+            var finder = new MsBuildProjectFinder(Environment.CurrentDirectory);
+            var projectFile = finder.FindMsBuildProject();
+            var targetsFile = FindTargetsFile();
+
+            var args = new[]
+            {
+                   "msbuild",
+                   projectFile,
+                   "/nologo",
+                   "/restore",
+                   "/t:Publish",
+                   $"/p:CustomAfterMicrosoftCommonTargets={targetsFile}",
+                   $"/p:CustomAfterMicrosoftCommonCrossTargetingTargets={targetsFile}",
+                   $"/p:OciImageName={repository}",
+                   $"/p:OciUsername={username}",
+                   $"/p:OciPassword={password}"
+            };
+            var psi = new ProcessStartInfo
+            {
+                FileName = DotNetMuxer.MuxerPathOrDefault(),
+                Arguments = ArgumentEscaper.EscapeAndConcatenate(args),
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
+
+            var process = Process.Start(psi);
+            process.WaitForExit();
+            console.Out.WriteLine(process.StandardOutput.ReadToEnd());
+
+            string FindTargetsFile()
+            {
+                var assemblyDir = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+                var searchPaths = new[]
+                {
+                   Path.Combine(AppContext.BaseDirectory, "assets"),
+                   Path.Combine(assemblyDir, "assets"),
+                   AppContext.BaseDirectory,
+                   assemblyDir,
+               };
+
+                var targetPath = searchPaths.Select(p => Path.Combine(p, "Oras.targets")).FirstOrDefault(File.Exists);
+                if (targetPath == null)
+                {
+                    Console.WriteLine("Fatal error: could not find Oras.targets");
+                }
+                return targetPath;
+            }
         }
     }
 }

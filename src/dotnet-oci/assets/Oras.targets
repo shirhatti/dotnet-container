@@ -1,0 +1,28 @@
+﻿<Project>
+
+  <PropertyGroup>
+    <IsWindows Condition="'$(OS)' == 'Windows_NT'">true</IsWindows>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(MSBuildRuntimeType)' == 'Core'">
+    <IsOSX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</IsOSX>
+    <IsLinux Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</IsLinux>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TaskAssembly>$(MSBuildThisFileDirectory)..\Dotnet.Oci.MSBuildTasks.dll</TaskAssembly>
+    <OrasExe Condition="$(IsWindows)==true">$(MSBuildThisFileDirectory)..\win-x64\oras.exe</OrasExe>
+    <OrasExe Condition="$(IsOSX)==true">$(MSBuildThisFileDirectory)..\osx-x64\oras</OrasExe>
+    <OrasExe Condition="$(IsLinux)==true">$(MSBuildThisFileDirectory)..\linux-x64\oras</OrasExe>
+  </PropertyGroup>
+
+  <UsingTask TaskName="MSBuildTasks.OrasPush" AssemblyFile="$(TaskAssembly)" />
+
+  <Target Name="DisplayMessages" AfterTargets="Publish" >  
+    <Message Importance="High" Text="Project File Name = $(MSBuildProjectFile)" />  
+    <Message Importance="High" Text="Project Extension = $(MSBuildProjectExtension)" />
+    <Message Importance="High" Text="Oras = $(OrasExe)" />
+    <OrasPush OrasExe="$(OrasExe)" ImageName="$(OciImageName)" PublishDir="$(PublishDir)" />
+  </Target>
+  
+</Project>

@@ -8,7 +8,7 @@ namespace dotnet_oci.Options
     internal class RepositoryOption
     {
         public static Option Create() => new Option(
-                    alias: "--repo",
+                    alias: "--repository",
                     description: "Name of the repository",
                     argument: new Argument<string>
                     {
@@ -16,11 +16,11 @@ namespace dotnet_oci.Options
                         Arity = ArgumentArity.ExactlyOne
                     });
 
-        public static void EnsureNotNullorMalformed(string? option)
+        public static void EnsureNotNullorMalformed(string? repository)
         {
-            if (option == null)
+            if (repository == null)
             {
-                throw new ArgumentNullException(nameof(option));
+                throw new ArgumentNullException(nameof(repository));
             }
         }
     }
