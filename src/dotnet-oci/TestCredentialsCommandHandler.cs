@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace dotnet_oci
 {
-    public class TestCredentialsCommandHandler
+    internal class TestCredentialsCommandHandler
     {
         public static Command CreateCommand() => new Command(
             name: "test-credentials",

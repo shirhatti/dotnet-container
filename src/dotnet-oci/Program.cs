@@ -9,6 +9,7 @@ namespace dotnet_oci
     {
         public async static Task<int> Main(string[] args) => await new CommandLineBuilder()
                 .AddCommand(TestCredentialsCommandHandler.CreateCommand())
+                .AddCommand(PushCommandHandler.CreateCommand())
                 .UseDefaults()
                 .Build()
                 .InvokeAsync(args);
