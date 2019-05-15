@@ -1,4 +1,4 @@
-# dotnet-oci
+# dotnet-container
 A .NET global tool for producing and publishing OCI images
 
 ### Creating a Service Principal for authentication
