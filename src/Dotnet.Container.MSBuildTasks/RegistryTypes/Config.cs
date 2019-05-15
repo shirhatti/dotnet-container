@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace dotnet_container.RegistryTypes
 {
@@ -10,5 +11,7 @@ namespace dotnet_container.RegistryTypes
         public long Size { get; set; }
         [JsonProperty("digest")]
         public string Digest { get; set; }
+        [JsonProperty("annotations")]
+        public Dictionary<string, string> Annotations { get; set; }
     }
 }

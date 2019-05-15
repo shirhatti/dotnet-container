@@ -15,8 +15,5 @@ namespace dotnet_container.RegistryTypes
         public Config Config { get; set; }
         [JsonProperty("layers")]
         public IList<Config> Layers { get; set; }
-
-        [JsonProperty("annotations")]
-        public Dictionary<string,string> Annotations { get; set; }
     }
 }

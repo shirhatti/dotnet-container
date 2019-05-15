@@ -44,14 +44,19 @@ namespace dotnet_container
 
             try
             {
-                var manifest = await registryInstance.GetManifestAsync("aspnet", "3.0.0-preview5", ManifestType.DockerV2);
-                var config = new Config()
-                {
-                    Digest = "sha256:a0e3fc7588af61e779178b215acb0347a9832dedf569b935277c2a2313edac80",
+                var appManifest = await registryInstance.GetManifestAsync("helloworld", layerSHA, ManifestType.DockerV2);
+                var appDiffId = appManifest.Layers[0].Annotations["io.deis.oras.content.digest"];
+                var appSize = appManifest.Layers[0].Size;
+                var appDigest = appManifest.Layers[0].Digest;
 
-                }
-                //var manifest = await registryInstance.GetManifestAsync("helloworld", layerSHA, ManifestType.OciV1);
-                //console.Out.WriteLine(manifest.ToString());
+                var baseManifest = await registryInstance.GetManifestAsync("aspnet", "3.0.0-preview5", ManifestType.DockerV2);
+                var baseDigest = baseManifest.Config.Digest;
+
+
+                var appLayer = new Config()
+                {
+                    
+                };
 
             }
             catch (RegistryException)
