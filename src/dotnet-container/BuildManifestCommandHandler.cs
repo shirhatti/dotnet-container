@@ -3,17 +3,18 @@ using dotnet_container.RegistryTypes;
 using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace dotnet_container
 {
-    internal class TestCredentialsCommandHandler
+    internal class BuildManifestCommandHandler
     {
         public static Command CreateCommand() => new Command(
-            name: "test-credentials",
-            description: "Test credentials used to connect to container registry",
+            name: "build-manifest",
+            description: "",
             symbols: new Option[]
             {
                 RegistryOption.Create(),
@@ -39,16 +40,23 @@ namespace dotnet_container
 
             var registryUri = new UriBuilder("https", registry).Uri;
             var registryInstance = new Registry(registryUri, username, password);
+            var layerSHA = "sha256:e5796678b5e6d2d3b0a29a223504c13d6b1c8332405ce4b73aef8c90bd1f13dc";
 
             try
             {
-                _ = await registryInstance.GetApiVersionAsync();
-                console.Out.WriteLine("Credentials are valid");
+                var manifest = await registryInstance.GetManifestAsync("aspnet", "3.0.0-preview5", ManifestType.DockerV2);
+                var config = new Config()
+                {
+                    Digest = "sha256:a0e3fc7588af61e779178b215acb0347a9832dedf569b935277c2a2313edac80",
+
+                }
+                //var manifest = await registryInstance.GetManifestAsync("helloworld", layerSHA, ManifestType.OciV1);
+                //console.Out.WriteLine(manifest.ToString());
 
             }
             catch (RegistryException)
             {
-                console.Error.WriteLine("Credentials are invalid");
+
             }
         }
     }

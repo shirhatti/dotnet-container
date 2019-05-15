@@ -1,5 +1,7 @@
 ﻿using Dotnet.Container.Helpers;
+using dotnet_container.RegistryTypes;
 using Microsoft.Build.Framework;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -46,8 +48,20 @@ namespace Dotnet.Container.MSBuildTasks
             using (var proc = Process.Start(psi))
             {
                 proc.WaitForExit();
-                Log.LogMessage(MessageImportance.High, proc.StandardOutput.ReadToEnd());
                 Log.LogMessage(MessageImportance.High, proc.StandardError.ReadToEnd());
+
+                var bufferedOutput = proc.StandardOutput.ReadToEnd();
+                Log.LogMessage(MessageImportance.High, bufferedOutput);
+                var shaLine = bufferedOutput.Split('\n').Where(s => s.Contains("Digest: sha256:")).FirstOrDefault();
+                var layerSha = shaLine.Substring(shaLine.IndexOf("sha256"));
+                var registryName = ImageName.Split('/').First();
+                var repoName = ImageName.Substring(ImageName.IndexOf('/')+1).Split(':').First();
+                var tagName = ImageName.Split(':').Last();
+
+                Log.LogMessage(MessageImportance.High, registryName);
+                Log.LogMessage(MessageImportance.High, repoName);
+                Log.LogMessage(MessageImportance.High, tagName);
+
             }
             return true;
         }
