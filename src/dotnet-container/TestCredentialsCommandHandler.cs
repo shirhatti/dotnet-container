@@ -36,7 +36,7 @@ namespace dotnet_container
                 return;
             }
 
-            var requestPath = new UriBuilder("https", registry, 443, "v2").Uri;
+            var requestPath = new UriBuilder("https", registry, 443, "v2/").Uri;
             var request = new HttpRequestMessage(HttpMethod.Get, requestPath);
             request.AddBasicAuthorizationHeader(username, password);
 
@@ -46,9 +46,9 @@ namespace dotnet_container
             {
                 console.Out.WriteLine("Invalid credentials");
             }
-            if (statusCode == HttpStatusCode.OK)
+            else if (statusCode == HttpStatusCode.OK)
             {
-                return;
+                console.Out.WriteLine("Credentials are valid");
             }
             else
             {
