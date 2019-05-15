@@ -19,9 +19,6 @@
   <UsingTask TaskName="MSBuildTasks.OrasPush" AssemblyFile="$(TaskAssembly)" />
 
   <Target Name="DisplayMessages" AfterTargets="Publish" >  
-    <Message Importance="High" Text="Project File Name = $(MSBuildProjectFile)" />  
-    <Message Importance="High" Text="Project Extension = $(MSBuildProjectExtension)" />
-    <Message Importance="High" Text="Oras = $(OrasExe)" />
     <OrasPush OrasExe="$(OrasExe)" ImageName="$(ImageName)" PublishDir="$(PublishDir)" Username="$(RegistryUsername)" Password="$(RegistryPassword)" />
   </Target>
   

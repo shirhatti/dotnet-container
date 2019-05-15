@@ -23,15 +23,24 @@ namespace dotnet_container
                 RepositoryOption.Create()
             },
             handler: CommandHandler.Create<IConsole, string?, string?, string?, string?>(PushAsync),
-            isHidden: true
+            isHidden: false
             );
 
         private static void PushAsync(IConsole console, string? registry, string? username, string? password, string? repository)
         {
-            RegistryOption.EnsureNotNullorMalformed(registry);
-            UsernameOption.EnsureNotNull(ref username);
-            PasswordOption.EnsureNotNull(ref password);
-            RepositoryOption.EnsureNotNullorMalformed(repository);
+            try
+            {
+                RegistryOption.EnsureNotNullorMalformed(registry);
+                UsernameOption.EnsureNotNull(ref username);
+                PasswordOption.EnsureNotNull(ref password);
+                RepositoryOption.EnsureNotNullorMalformed(repository);
+            }
+            catch (ArgumentException e)
+            {
+                console.Error.WriteLine($"Push failed due to bad/missing argument:\t{e.ParamName}");
+                return;
+            }
+
 
             var finder = new MsBuildProjectFinder(Environment.CurrentDirectory);
             var projectFile = finder.FindMsBuildProject();
@@ -48,15 +57,14 @@ namespace dotnet_container
                    $"/p:CustomAfterMicrosoftCommonCrossTargetingTargets={targetsFile}",
                    $"/p:ImageName={registry}/{repository}",
                    $"/p:RegistryUsername={username}",
-                   $"/p:RegistryPassword={password}",
-                   "/bl"
+                   $"/p:RegistryPassword={password}"
             };
             var psi = new ProcessStartInfo
             {
                 FileName = DotNetMuxer.MuxerPathOrDefault(),
                 Arguments = ArgumentEscaper.EscapeAndConcatenate(args),
                 RedirectStandardOutput = true,
-                RedirectStandardError = true
+                RedirectStandardError = true,
             };
 
             var process = Process.Start(psi);

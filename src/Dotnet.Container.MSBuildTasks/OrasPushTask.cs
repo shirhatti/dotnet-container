@@ -43,8 +43,6 @@ namespace Dotnet.Container.MSBuildTasks
                 RedirectStandardError = true
             };
 
-            Log.LogMessage(MessageImportance.High, ArgumentEscaper.EscapeAndConcatenate(args));
-
             using (var proc = Process.Start(psi))
             {
                 proc.WaitForExit();

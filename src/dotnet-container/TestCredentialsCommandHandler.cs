@@ -24,9 +24,17 @@ namespace dotnet_container
             );
         private static async Task TestCredentialsAsync(IConsole console, string? registry, string? username, string? password)
         {
-            RegistryOption.EnsureNotNullorMalformed(registry);
-            UsernameOption.EnsureNotNull(ref username);
-            PasswordOption.EnsureNotNull(ref password);
+            try
+            {
+                RegistryOption.EnsureNotNullorMalformed(registry);
+                UsernameOption.EnsureNotNull(ref username);
+                PasswordOption.EnsureNotNull(ref password);
+            }
+            catch (ArgumentException e)
+            {
+                console.Error.WriteLine($"Push failed due to bad/missing argument:\t{e.ParamName}");
+                return;
+            }
 
             var requestPath = new UriBuilder("https", registry, 443, "v2").Uri;
             var request = new HttpRequestMessage(HttpMethod.Get, requestPath);
