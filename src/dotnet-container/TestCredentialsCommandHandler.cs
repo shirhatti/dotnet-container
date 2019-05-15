@@ -1,4 +1,4 @@
-﻿using dotnet_oci.Options;
+﻿using dotnet_container.Options;
 using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
@@ -6,13 +6,13 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace dotnet_oci
+namespace dotnet_container
 {
     internal class TestCredentialsCommandHandler
     {
         public static Command CreateCommand() => new Command(
             name: "test-credentials",
-            description: "Test credentials used to connect to OCI registry",
+            description: "Test credentials used to connect to container registry",
             symbols: new Option[]
             {
                 RegistryOption.Create(),

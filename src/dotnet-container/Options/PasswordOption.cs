@@ -4,11 +4,11 @@ using System.CommandLine;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace dotnet_oci.Options
+namespace dotnet_container.Options
 {
     internal class PasswordOption
     {
-        private static readonly string _environmentPassword = "OCI_PASSWORD";
+        private static readonly string _environmentPassword = "REGISTRY_PASSWORD";
         public static Option Create() => new Option(
                     alias: "--password",
                     description: $"Password used to connect to the registry. Can also be specified via an environment variable {_environmentPassword}",

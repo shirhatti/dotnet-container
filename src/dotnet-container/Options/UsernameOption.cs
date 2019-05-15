@@ -4,11 +4,11 @@ using System.CommandLine;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace dotnet_oci.Options
+namespace dotnet_container.Options
 {
     internal class UsernameOption
     {
-        private static readonly string _environmentUsername = "OCI_USERNAME";
+        private static readonly string _environmentUsername = "REGISTRY_USERNAME";
         public static Option Create() => new Option(
                     alias: "--username",
                     description: $"Username (or appId if using a Service Principal) used to connect to the registry. Can also be specified via an environment variable {_environmentUsername}",

@@ -1,10 +1,10 @@
-﻿using Dotnet.Oci.Helpers;
+﻿using Dotnet.Container.Helpers;
 using Microsoft.Build.Framework;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace Dotnet.Oci.MSBuildTasks
+namespace Dotnet.Container.MSBuildTasks
 {
     public class OrasPush : Microsoft.Build.Utilities.Task
     {

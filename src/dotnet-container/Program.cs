@@ -3,7 +3,7 @@ using System.CommandLine.Builder;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
-namespace dotnet_oci
+namespace dotnet_container
 {
     class Program
     {
