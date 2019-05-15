@@ -5,6 +5,7 @@ using System.CommandLine.Invocation;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using Dotnet.Oci.Helpers;
 using Process = System.Diagnostics.Process;
 
 namespace dotnet_oci
@@ -45,9 +46,10 @@ namespace dotnet_oci
                    "/t:Publish",
                    $"/p:CustomAfterMicrosoftCommonTargets={targetsFile}",
                    $"/p:CustomAfterMicrosoftCommonCrossTargetingTargets={targetsFile}",
-                   $"/p:OciImageName={repository}",
+                   $"/p:OciImageName={registry}/{repository}",
                    $"/p:OciUsername={username}",
-                   $"/p:OciPassword={password}"
+                   $"/p:OciPassword={password}",
+                   "/bl"
             };
             var psi = new ProcessStartInfo
             {

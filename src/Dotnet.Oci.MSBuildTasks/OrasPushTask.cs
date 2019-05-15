@@ -1,9 +1,10 @@
-﻿using Microsoft.Build.Framework;
+﻿using Dotnet.Oci.Helpers;
+using Microsoft.Build.Framework;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace MSBuildTasks
+namespace Dotnet.Oci.MSBuildTasks
 {
     public class OrasPush : Microsoft.Build.Utilities.Task
     {
@@ -16,18 +17,39 @@ namespace MSBuildTasks
         [Required]
         public string PublishDir { get; set; }
 
+        [Required]
+        public string UserName { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+
         public override bool Execute()
         {
-            Log.LogMessage(MessageImportance.High, ImageName);
-            Log.LogMessage(MessageImportance.High, PublishDir);
+            var args = new[]
+            {
+                   "push",
+                   "-u",
+                   UserName,
+                   "-p",
+                   Password,
+                   ImageName,
+                   PublishDir
+            };
+            var psi = new ProcessStartInfo
+            {
+                FileName = OrasExe,
+                Arguments = ArgumentEscaper.EscapeAndConcatenate(args),
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
 
-            var psi = new ProcessStartInfo(fileName: OrasExe,
-                                           arguments: "--help");
-            psi.RedirectStandardOutput = true;
+            Log.LogMessage(MessageImportance.High, ArgumentEscaper.EscapeAndConcatenate(args));
+
             using (var proc = Process.Start(psi))
             {
                 proc.WaitForExit();
                 Log.LogMessage(MessageImportance.High, proc.StandardOutput.ReadToEnd());
+                Log.LogMessage(MessageImportance.High, proc.StandardError.ReadToEnd());
             }
             return true;
         }

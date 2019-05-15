@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Text;
 
-namespace dotnet_oci
+namespace Dotnet.Oci.Helpers
 {
-    internal static class ArgumentEscaper
+    public static class ArgumentEscaper
     {
         public static string EscapeAndConcatenate(IEnumerable<string> args)
             => string.Join(" ", args.Select(EscapeSingleArg));

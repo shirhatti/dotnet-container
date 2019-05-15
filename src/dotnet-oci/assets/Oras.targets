@@ -22,7 +22,7 @@
     <Message Importance="High" Text="Project File Name = $(MSBuildProjectFile)" />  
     <Message Importance="High" Text="Project Extension = $(MSBuildProjectExtension)" />
     <Message Importance="High" Text="Oras = $(OrasExe)" />
-    <OrasPush OrasExe="$(OrasExe)" ImageName="$(OciImageName)" PublishDir="$(PublishDir)" />
+    <OrasPush OrasExe="$(OrasExe)" ImageName="$(OciImageName)" PublishDir="$(PublishDir)" Username="$(OciUsername)" Password="$(OciPassword)" />
   </Target>
   
 </Project>
