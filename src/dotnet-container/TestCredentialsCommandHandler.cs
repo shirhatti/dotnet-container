@@ -1,10 +1,8 @@
-﻿using dotnet_container.Options;
-using dotnet_container.RegistryTypes;
+﻿using Dotnet.Container.RegistryClient;
+using dotnet_container.Options;
 using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace dotnet_container

@@ -1,4 +1,4 @@
-﻿namespace dotnet_container.RegistryTypes
+﻿namespace Dotnet.Container.RegistryClient
 {
     public enum ApiVersion
     {

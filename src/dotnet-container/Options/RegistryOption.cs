@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.CommandLine;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace dotnet_container.Options
@@ -16,7 +17,7 @@ namespace dotnet_container.Options
                         Arity = ArgumentArity.ExactlyOne
                     });
 
-        public static void EnsureNotNullorMalformed(string? option)
+        public static void EnsureNotNullorMalformed([EnsuresNotNull]string? option)
         {
             if (option == null)
             {

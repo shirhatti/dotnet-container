@@ -6,7 +6,6 @@
     <RootNamespace>dotnet_container</RootNamespace>
     <PackAsTool>true</PackAsTool>
     <PackageOutputPath>$(MSBuildThisFileDirectory)..\..\artifacts\</PackageOutputPath>
-    <NullableContextOptions>enable</NullableContextOptions>
     <VersionPrefix>0.1.0</VersionPrefix>
     <VersionSuffix>build$([System.DateTime]::Now.ToString('yyyyMMdd-HHmm'))</VersionSuffix>
     <!--Workaround for https://github.com/dotnet/cli/issues/11299-->
@@ -24,6 +23,7 @@
   <ItemGroup>
     <PackageReference Include="System.CommandLine.Experimental" Version="0.2.0-alpha.19174.3" />
     <ProjectReference Include="..\Dotnet.Container.MSBuildTasks\Dotnet.Container.MSBuildTasks.csproj" />
+    <ProjectReference Include="..\Dotnet.Container.RegistryClient\Dotnet.Container.RegistryClient.csproj" />
   </ItemGroup>
 
 </Project>

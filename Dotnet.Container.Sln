@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet.Container.MSBuildTas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet-container", "src\dotnet-container\dotnet-container.csproj", "{62B0EFE1-52AA-4249-BB77-E2EB74DA5DAD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet.Container.RegistryClient", "src\Dotnet.Container.RegistryClient\Dotnet.Container.RegistryClient.csproj", "{842F2F5B-F104-4401-8FE3-BD237FDC5C13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,18 @@ Global
 		{62B0EFE1-52AA-4249-BB77-E2EB74DA5DAD}.Release|x64.Build.0 = Release|Any CPU
 		{62B0EFE1-52AA-4249-BB77-E2EB74DA5DAD}.Release|x86.ActiveCfg = Release|Any CPU
 		{62B0EFE1-52AA-4249-BB77-E2EB74DA5DAD}.Release|x86.Build.0 = Release|Any CPU
+		{842F2F5B-F104-4401-8FE3-BD237FDC5C13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{842F2F5B-F104-4401-8FE3-BD237FDC5C13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{842F2F5B-F104-4401-8FE3-BD237FDC5C13}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{842F2F5B-F104-4401-8FE3-BD237FDC5C13}.Debug|x64.Build.0 = Debug|Any CPU
+		{842F2F5B-F104-4401-8FE3-BD237FDC5C13}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{842F2F5B-F104-4401-8FE3-BD237FDC5C13}.Debug|x86.Build.0 = Debug|Any CPU
+		{842F2F5B-F104-4401-8FE3-BD237FDC5C13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{842F2F5B-F104-4401-8FE3-BD237FDC5C13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{842F2F5B-F104-4401-8FE3-BD237FDC5C13}.Release|x64.ActiveCfg = Release|Any CPU
+		{842F2F5B-F104-4401-8FE3-BD237FDC5C13}.Release|x64.Build.0 = Release|Any CPU
+		{842F2F5B-F104-4401-8FE3-BD237FDC5C13}.Release|x86.ActiveCfg = Release|Any CPU
+		{842F2F5B-F104-4401-8FE3-BD237FDC5C13}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +81,7 @@ Global
 		{DAA22395-793B-4B5A-81A1-327C3A7FA561} = {079A4719-BD2F-418C-BAEF-E29CAAE13A18}
 		{A3F22169-A024-4E12-840A-CBAACCE7BCC7} = {92EB3FE2-15F2-4748-9307-2A2C57C5F950}
 		{62B0EFE1-52AA-4249-BB77-E2EB74DA5DAD} = {92EB3FE2-15F2-4748-9307-2A2C57C5F950}
+		{842F2F5B-F104-4401-8FE3-BD237FDC5C13} = {92EB3FE2-15F2-4748-9307-2A2C57C5F950}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E8D80E35-C155-4F87-B01E-20463F7DECC9}

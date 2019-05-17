@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
-namespace dotnet_container.RegistryTypes
+namespace Dotnet.Container.RegistryClient
 {
     [Serializable]
     public class RegistryException : Exception

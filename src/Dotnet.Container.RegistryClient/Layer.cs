@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace dotnet_container.RegistryTypes
+namespace Dotnet.Container.RegistryClient
 {
-    public class Config
+    public class Layer
     {
         [JsonProperty("mediaType")]
         public string MediaType { get; set; }

@@ -7,8 +7,6 @@ using System.IO;
 using System.Linq;
 using Dotnet.Container.Helpers;
 using Process = System.Diagnostics.Process;
-using System.Net.Http;
-using dotnet_container.RegistryTypes;
 using System.Threading.Tasks;
 
 namespace dotnet_container
@@ -25,11 +23,11 @@ namespace dotnet_container
                 PasswordOption.Create(),
                 RepositoryOption.Create()
             },
-            handler: CommandHandler.Create<IConsole, string?, string?, string?, string?>(PushAsync),
+            handler: CommandHandler.Create<IConsole, string?, string?, string?, string?>(Push),
             isHidden: false
             );
 
-        private static async Task PushAsync(IConsole console, string? registry, string? username, string? password, string? repository)
+        private static void Push(IConsole console, string? registry, string? username, string? password, string? repository)
         {
             try
             {

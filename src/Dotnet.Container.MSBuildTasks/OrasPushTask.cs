@@ -1,9 +1,6 @@
 ﻿using Dotnet.Container.Helpers;
-using dotnet_container.RegistryTypes;
 using Microsoft.Build.Framework;
-using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 
 namespace Dotnet.Container.MSBuildTasks

@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace dotnet_container.RegistryTypes
+namespace Dotnet.Container.RegistryClient
 {
     public class Manifest
     {
@@ -12,8 +10,8 @@ namespace dotnet_container.RegistryTypes
         [JsonProperty("mediaType")]
         public string MediaType { get; set; }
         [JsonProperty("config")]
-        public Config Config { get; set; }
+        public Layer Config { get; set; }
         [JsonProperty("layers")]
-        public IList<Config> Layers { get; set; }
+        public IList<Layer> Layers { get; set; }
     }
 }
