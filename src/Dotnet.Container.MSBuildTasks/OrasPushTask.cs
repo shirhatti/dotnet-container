@@ -29,14 +29,11 @@ namespace Dotnet.Container.MSBuildTasks
         {
             var args = new[]
             {
-                   "push",
-                   "-u",
-                   UserName,
-                   "-p",
-                   Password,
-                   ImageName,
-                   PublishDir
+                ""
             };
+            var registryName = ImageName.Split('/').First();
+            var repoName = ImageName.Substring(ImageName.IndexOf('/')+1).Split(':').First();
+            var tagName = ImageName.Split(':').Last();
             var psi = new ProcessStartInfo
             {
                 FileName = OrasExe,
@@ -44,7 +41,12 @@ namespace Dotnet.Container.MSBuildTasks
                 RedirectStandardOutput = true,
                 RedirectStandardError = true
             };
-
+            psi.EnvironmentVariables.Add("DOCKER_USERNAME", UserName);
+            psi.EnvironmentVariables.Add("DOCKER_PASSWORD", Password);
+            psi.EnvironmentVariables.Add("REGISTRY", registryName);
+            psi.EnvironmentVariables.Add("REPO", repoName);
+            psi.EnvironmentVariables.Add("TAG", tagName);
+            psi.EnvironmentVariables.Add("PUBLISH_DIR", PublishDir);
             using (var proc = Process.Start(psi))
             {
                 proc.WaitForExit();
@@ -52,15 +54,6 @@ namespace Dotnet.Container.MSBuildTasks
 
                 var bufferedOutput = proc.StandardOutput.ReadToEnd();
                 Log.LogMessage(MessageImportance.High, bufferedOutput);
-                var shaLine = bufferedOutput.Split('\n').Where(s => s.Contains("Digest: sha256:")).FirstOrDefault();
-                var layerSha = shaLine.Substring(shaLine.IndexOf("sha256"));
-                var registryName = ImageName.Split('/').First();
-                var repoName = ImageName.Substring(ImageName.IndexOf('/')+1).Split(':').First();
-                var tagName = ImageName.Split(':').Last();
-
-                Log.LogMessage(MessageImportance.High, registryName);
-                Log.LogMessage(MessageImportance.High, repoName);
-                Log.LogMessage(MessageImportance.High, tagName);
 
             }
             return true;

@@ -12,7 +12,7 @@
   <PropertyGroup>
     <TaskAssembly>$(MSBuildThisFileDirectory)..\Dotnet.Container.MSBuildTasks.dll</TaskAssembly>
     <OrasExe Condition="$(IsWindows)==true">$(MSBuildThisFileDirectory)..\win-x64\oras.exe</OrasExe>
-    <OrasExe Condition="$(IsOSX)==true">$(MSBuildThisFileDirectory)..\osx-x64\oras</OrasExe>
+    <OrasExe Condition="$(IsOSX)==true">$(MSBuildThisFileDirectory)\push.sh</OrasExe>
     <OrasExe Condition="$(IsLinux)==true">$(MSBuildThisFileDirectory)..\linux-x64\oras</OrasExe>
   </PropertyGroup>
 
