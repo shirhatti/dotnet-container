@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace dotnet_container
+namespace Dotnet.Container
 {
     internal class MsBuildProjectFinder
     {

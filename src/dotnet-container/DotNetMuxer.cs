@@ -3,16 +3,16 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace dotnet_container
+namespace Dotnet.Container
 {
     /// <summary>
     /// Utilities for finding the "dotnet.exe" file from the currently running .NET Core application
     /// </summary>
-    internal static class DotNetMuxer
+    internal static class DotnetMuxer
     {
         private const string MuxerName = "dotnet";
 
-        static DotNetMuxer()
+        static DotnetMuxer()
         {
             MuxerPath = TryFindMuxerPath();
         }

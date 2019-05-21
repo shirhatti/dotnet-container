@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <RootNamespace>dotnet_container</RootNamespace>
+    <RootNamespace>Dotnet.Container</RootNamespace>
     <PackAsTool>true</PackAsTool>
     <PackageOutputPath>$(MSBuildThisFileDirectory)..\..\artifacts\</PackageOutputPath>
     <VersionPrefix>0.1.0</VersionPrefix>

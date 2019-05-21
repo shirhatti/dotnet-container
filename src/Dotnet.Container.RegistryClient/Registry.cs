@@ -130,7 +130,6 @@ namespace Dotnet.Container.RegistryClient
             var serializedConfig = JsonConvert.SerializeObject(config, Formatting.None);
             var configDigest = SHAHelpers.ComputeSHA256(serializedConfig);
             uri = new Uri(_registryUri, $"{location}&digest={configDigest}");
-            Console.WriteLine("Pusing config to " + uri.ToString());
             request = new HttpRequestMessage(HttpMethod.Put, uri);
             request.Content = new StringContent(serializedConfig);
             var configSize = request.Content.Headers.ContentLength.Value;

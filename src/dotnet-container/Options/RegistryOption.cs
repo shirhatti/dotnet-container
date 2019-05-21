@@ -4,7 +4,7 @@ using System.CommandLine;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace dotnet_container.Options
+namespace Dotnet.Container.Options
 {
     internal class RegistryOption
     {

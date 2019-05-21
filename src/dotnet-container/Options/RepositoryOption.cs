@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.CommandLine;
 using System.Text;
 
-namespace dotnet_container.Options
+namespace Dotnet.Container.Options
 {
     internal class RepositoryOption
     {

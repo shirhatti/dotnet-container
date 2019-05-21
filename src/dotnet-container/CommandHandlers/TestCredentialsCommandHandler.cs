@@ -1,11 +1,11 @@
 ﻿using Dotnet.Container.RegistryClient;
-using dotnet_container.Options;
+using Dotnet.Container.Options;
 using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
-namespace dotnet_container
+namespace Dotnet.Container.CommandHandlers
 {
     internal class TestCredentialsCommandHandler
     {

@@ -1,4 +1,4 @@
-﻿using dotnet_container.Options;
+﻿using Dotnet.Container.Options;
 using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
@@ -9,7 +9,7 @@ using Dotnet.Container.Helpers;
 using Process = System.Diagnostics.Process;
 using System.Threading.Tasks;
 
-namespace dotnet_container
+namespace Dotnet.Container.CommandHandlers
 {
     internal class PushCommandHandler
     {
@@ -62,7 +62,7 @@ namespace dotnet_container
             };
             var psi = new ProcessStartInfo
             {
-                FileName = DotNetMuxer.MuxerPathOrDefault(),
+                FileName = DotnetMuxer.MuxerPathOrDefault(),
                 Arguments = ArgumentEscaper.EscapeAndConcatenate(args),
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,

@@ -1,11 +1,11 @@
 ﻿using Dotnet.Container.RegistryClient;
-using dotnet_container.Options;
+using Dotnet.Container.Options;
 using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
-namespace dotnet_container
+namespace Dotnet.Container.CommandHandlers
 {
     internal class BuildManifestCommandHandler
     {
@@ -39,9 +39,8 @@ namespace dotnet_container
             var registryUri = new UriBuilder("https", registry).Uri;
             var registryInstance = new Registry(registryUri, username, password);
 
-            var digest = await registryInstance.GetDigestFromReference("helloworld", "latest", ManifestType.DockerV2);
-            console.Out.WriteLine(digest);
-            var appManifest = await registryInstance.GetManifestAsync("helloworld", "sha256:70fa9f0f8ec7967b6a10df4907b36a8e13cb13b952f41636ffa8044a115306be", ManifestType.OciV1);
+            var digest = await registryInstance.GetDigestFromReference("helloworld", "latest", ManifestType.OciV1);
+            var appManifest = await registryInstance.GetManifestAsync("helloworld", digest, ManifestType.DockerV2);
             var appDiffId = appManifest.Layers[0].Annotations["io.deis.oras.content.digest"];
             var appSize = appManifest.Layers[0].Size;
             var appDigest = appManifest.Layers[0].Digest;
@@ -65,9 +64,8 @@ namespace dotnet_container
             baseManifest.Layers.Add(layer);
             baseManifest.Config.Digest = newConfigSHA;
             baseManifest.Config.Size = newconfigSize;
-            //console.Out.WriteLine(JsonConvert.SerializeObject(baseManifest));
 
-            await registryInstance.PutManifestAsync("helloworld", "run2", baseManifest);
+            await registryInstance.PutManifestAsync("helloworld", "run3", baseManifest);
         }
     }
 }
