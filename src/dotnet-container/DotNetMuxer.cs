@@ -14,7 +14,7 @@ namespace Dotnet.Container
 
         static DotnetMuxer()
         {
-            MuxerPath = TryFindMuxerPath();
+            MuxerPath = TryFindMuxerPath()!;
         }
 
         /// <summary>

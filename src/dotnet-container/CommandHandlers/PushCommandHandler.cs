@@ -1,13 +1,12 @@
-﻿using Dotnet.Container.Options;
+﻿using Dotnet.Container.Helpers;
+using Dotnet.Container.Options;
 using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using Dotnet.Container.Helpers;
 using Process = System.Diagnostics.Process;
-using System.Threading.Tasks;
 
 namespace Dotnet.Container.CommandHandlers
 {
@@ -86,7 +85,7 @@ namespace Dotnet.Container.CommandHandlers
                 var targetPath = searchPaths.Select(p => Path.Combine(p, "Oras.targets")).FirstOrDefault(File.Exists);
                 if (targetPath == null)
                 {
-                    Console.WriteLine("Fatal error: could not find Oras.targets");
+                    throw new ApplicationException("Fatal error: could not find Oras.targets");
                 }
                 return targetPath;
             }
