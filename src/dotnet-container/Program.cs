@@ -12,6 +12,7 @@ namespace Dotnet.Container
                 .AddCommand(TestCredentialsCommandHandler.CreateCommand())
                 .AddCommand(PushCommandHandler.CreateCommand())
                 .AddCommand(BuildManifestCommandHandler.CreateCommand())
+                .AddCommand(ImportBaseCommandHandler.CreateCommand())
                 .UseDefaults()
                 .Build()
                 .InvokeAsync(args);

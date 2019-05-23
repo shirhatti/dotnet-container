@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -19,12 +20,16 @@ namespace Dotnet.Container.RegistryClient
         private readonly string _username;
         private readonly string _password;
 
-        public Registry(Uri registryUri, string username, string password)
+        public Registry(Uri registryUri, string username, string password) : this(registryUri)
+        {
+            _username = username;
+            _password = password;
+        }
+
+        public Registry(Uri registryUri)
         {
             _httpClient = new HttpClient();
             _registryUri = registryUri;
-            _username = username;
-            _password = password;
         }
 
         public async Task<ApiVersion> GetApiVersionAsync()
@@ -34,17 +39,11 @@ namespace Dotnet.Container.RegistryClient
             request.AddBasicAuthorizationHeader(_username, _password);
             var response = await _httpClient.SendAsync(request);
 
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            if (response.StatusCode != HttpStatusCode.OK)
             {
-                throw new RegistryException(response.StatusCode.ToString());
+                throw new RegistryException();
             }
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                return ApiVersion.v2;
-            }
-
-            return ApiVersion.v1;
+            return ApiVersion.v2;
         }
 
         public async Task<string> GetDigestFromReference(string name, string reference, ManifestType manifestType)
@@ -64,6 +63,67 @@ namespace Dotnet.Container.RegistryClient
             }
             var digest = response.Headers.GetValues("Docker-Content-Digest").FirstOrDefault();
             return digest;
+        }
+
+        public async Task<bool> CheckIfLayerExistsAsync(string name, string reference)
+        {
+            var uri = new Uri(_registryUri, $"/v2/{name}/blobs/{reference}");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Head, uri);
+            request.AddBasicAuthorizationHeader(_username, _password);
+            var response = await _httpClient.SendAsync(request);
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                return true;
+            }
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return false;
+            }
+            else
+            {
+                throw new RegistryException();
+            }
+        }
+
+        public async Task CopyBlobAsync(string name, string reference, Registry baseRegistry, string baseName)
+        {
+            // Create bucket to POST blob
+            var uri = new Uri(_registryUri, $"/v2/{name}/blobs/uploads/");
+            var request = new HttpRequestMessage(HttpMethod.Post, uri);
+            request.AddBasicAuthorizationHeader(_username, _password);
+            var response = await _httpClient.SendAsync(request);
+            if (response.StatusCode != HttpStatusCode.Accepted)
+            {
+                throw new RegistryException();
+            }
+
+            // POST blob into new registry
+            var location = response.Headers.GetValues("Location").FirstOrDefault();
+            uri = new Uri(_registryUri, $"{location}&digest={reference}");
+            request = new HttpRequestMessage(HttpMethod.Post, uri);
+            request.Content = new StreamContent(await baseRegistry.GetBlobStream(baseName, reference));
+            request.AddBasicAuthorizationHeader(_username, _password);
+            response = await _httpClient.SendAsync(request);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new RegistryException();
+            }
+        }
+
+        private async Task<Stream> GetBlobStream(string name, string reference)
+        {
+            var uri = new Uri(_registryUri, $"/v2/{name}/blobs/{reference}");
+            var request = new HttpRequestMessage(HttpMethod.Get, uri);
+            request.AddBasicAuthorizationHeader(_username, _password);
+            var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadAsStreamAsync();
+            }
+            else
+            {
+                throw new RegistryException();
+            }
         }
 
         public async Task<ConfigurationManifest> GetConfigBlobAsync(string name, string reference)
