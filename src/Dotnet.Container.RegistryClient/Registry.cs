@@ -100,7 +100,7 @@ namespace Dotnet.Container.RegistryClient
             // POST blob into new registry
             var location = response.Headers.GetValues("Location").FirstOrDefault();
             uri = new Uri(_registryUri, $"{location}&digest={reference}");
-            request = new HttpRequestMessage(HttpMethod.Post, uri);
+            request = new HttpRequestMessage(HttpMethod.Put, uri);
             request.Content = new StreamContent(await baseRegistry.GetBlobStream(baseName, reference));
             request.AddBasicAuthorizationHeader(_username, _password);
             response = await _httpClient.SendAsync(request);

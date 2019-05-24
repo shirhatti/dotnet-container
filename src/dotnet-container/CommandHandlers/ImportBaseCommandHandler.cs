@@ -62,15 +62,14 @@ namespace Dotnet.Container.CommandHandlers
                     break;
             }
 
-            foreach(var layer in manifest.Layers)
+            Parallel.ForEach(manifest.Layers, async (layer) =>
             {
-                if(!await registryInstance.CheckIfLayerExistsAsync(repository, layer.Digest))
+                if (!await registryInstance.CheckIfLayerExistsAsync(repository, layer.Digest))
                 {
                     // Layer doesn't exist. We'll need to upload it
                     await registryInstance.CopyBlobAsync(repository, layer.Digest, mcrRegistry, "dotnet/core/runtime");
                 }
-            }
-            
+            });            
         }
     }
 }
