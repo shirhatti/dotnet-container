@@ -10,6 +10,6 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin -Channel Release/3.0.1XX
+- script: curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin -Channel release/3.0.1xx
   displayName: 'Install .NET Core'
 
