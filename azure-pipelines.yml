@@ -14,7 +14,9 @@ steps:
   displayName: 'Install .NET Core'
 
 - script: /home/vsts/.dotnet/dotnet restore
+  workingDirectory: $(Build.Repository.LocalPath)
   displayName: 'dotnet restore'
 
-- script: /home/vsts/.dotnet/dotnet pack
+- script: /home/vsts/.dotnet/dotnet pack -o $(Build.ArtifactStagingDirectory)
+  workingDirectory: $(Build.Repository.LocalPath)
   displayName: 'dotnet pack'
