@@ -13,8 +13,8 @@ steps:
 - script: curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin -Channel release/3.0.1xx
   displayName: 'Install .NET Core'
 
-- script: /home/vsts/.dotnet/dotnet restore'
+- script: /home/vsts/.dotnet/dotnet restore
   displayName: 'dotnet restore'
 
-- script: /home/vsts/.dotnet/dotnet pack'
+- script: /home/vsts/.dotnet/dotnet pack
   displayName: 'dotnet pack'
