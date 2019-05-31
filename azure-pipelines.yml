@@ -17,6 +17,12 @@ steps:
   workingDirectory: $(Build.Repository.LocalPath)
   displayName: 'dotnet restore'
 
-- script: /home/vsts/.dotnet/dotnet pack -o $(Build.ArtifactStagingDirectory)
-  workingDirectory: $(Build.Repository.LocalPath)
+- script: /home/vsts/.dotnet/dotnet pack /p:PackageOutputPath=$(Build.ArtifactStagingDirectory) /p:VersionSuffix=build$(Build.BuildNumber)
+  workingDirectory: $(Build.Repository.LocalPath)/src/dotnet-container
   displayName: 'dotnet pack'
+
+- task: PublishPipelineArtifact@0
+  displayName: 'Publish package'
+  inputs:
+    artifactName: 'package'
+    targetPath: '$(Build.ArtifactStagingDirectory)'
