@@ -13,7 +13,7 @@ steps:
 - script: curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin -Channel release/3.0.1xx
   displayName: 'Install .NET Core'
 
-- script: /home/vsts/.dotnet/dotnet restore
+- script: pwd && /home/vsts/.dotnet/dotnet restore
   workingDirectory: $(Build.Repository.LocalPath)
   displayName: 'dotnet restore'
 
