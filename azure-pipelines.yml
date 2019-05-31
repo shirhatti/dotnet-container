@@ -13,3 +13,9 @@ steps:
 - script: curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin -Channel release/3.0.1xx
   displayName: 'Install .NET Core'
 
+- script: echo '##vso[task.prependpath]/home/vsts/.dotnet'
+  displayName: 'Add .NET to PATH'
+
+- script: dotnet restore'
+  displayName: 'dotnet restore'
+
