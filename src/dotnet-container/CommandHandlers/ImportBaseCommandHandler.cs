@@ -28,14 +28,31 @@ namespace Dotnet.Container.CommandHandlers
             try
             {
                 RegistryOption.EnsureNotNullorMalformed(registry);
-                UsernameOption.EnsureNotNull(ref username);
-                PasswordOption.EnsureNotNull(ref password);
                 RepositoryOption.EnsureNotNullorMalformed(repository);
             }
             catch (ArgumentException e)
             {
                 console.Error.WriteLine($"Push failed due to bad/missing argument:\t{e.ParamName}");
                 return;
+            }
+
+            try
+            {
+                UsernameOption.EnsureNotNull(ref username);
+                PasswordOption.EnsureNotNull(ref password);
+            }
+            catch (ArgumentException e)
+            {
+                if (CredentialHelper.TryGetCredentials(registry, out var credential))
+                {
+                    username = credential!.UserName;
+                    password = credential!.Password;
+                }
+                else
+                {
+                    console.Error.WriteLine($"Push failed due to bad/missing argument:\t{e.ParamName}");
+                    return;
+                }
             }
 
             var mcrRegistry = new Registry(new Uri("https://mcr.microsoft.com"));

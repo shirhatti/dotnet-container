@@ -5,6 +5,10 @@ namespace System.Net
 {
     public static class HttpRequestMessageHelpers
     {
+        public static void AddBasicAuthorizationHeader(this HttpRequestMessage message, NetworkCredential networkCredential)
+        {
+            message.AddBasicAuthorizationHeader(networkCredential.UserName, networkCredential.Password);
+        }
         public static void AddBasicAuthorizationHeader(this HttpRequestMessage message, string username, string password)
         {
             if (username != null && password != null)
