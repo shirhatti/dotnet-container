@@ -1,15 +1,14 @@
-﻿using Dotnet.Container.RegistryClient.Helpers;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
+using Dotnet.Container.RegistryClient.Helpers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Dotnet.Container.RegistryClient
 {
@@ -167,7 +166,7 @@ namespace Dotnet.Container.RegistryClient
             {
                 throw new RegistryException();
             }
-            
+
             return returnVal;
         }
 

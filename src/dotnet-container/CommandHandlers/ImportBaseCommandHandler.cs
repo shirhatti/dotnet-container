@@ -1,9 +1,9 @@
-﻿using Dotnet.Container.Options;
-using Dotnet.Container.RegistryClient;
-using System;
+﻿using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
+using Dotnet.Container.Options;
+using Dotnet.Container.RegistryClient;
 
 namespace Dotnet.Container.CommandHandlers
 {
@@ -63,7 +63,7 @@ namespace Dotnet.Container.CommandHandlers
             var dotnetVersion = "2.2";
 
             Manifest manifest;
-            switch(dotnetVersion)
+            switch (dotnetVersion)
             {
                 case "2.1":
                     manifest = await mcrRegistry.GetManifestAsync("dotnet/core/runtime", "2.1", ManifestType.DockerV2);
@@ -86,7 +86,7 @@ namespace Dotnet.Container.CommandHandlers
                     // Layer doesn't exist. We'll need to upload it
                     await registryInstance.CopyBlobAsync(repository, layer.Digest, mcrRegistry, "dotnet/core/runtime");
                 }
-            });            
+            });
         }
     }
 }

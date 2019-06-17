@@ -5,11 +5,16 @@ VisualStudioVersion = 16.0.28809.33
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{92EB3FE2-15F2-4748-9307-2A2C57C5F950}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet.Container.MSBuildTasks", "src\Dotnet.Container.MSBuildTasks\Dotnet.Container.MSBuildTasks.csproj", "{A3F22169-A024-4E12-840A-CBAACCE7BCC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.Container.MSBuildTasks", "src\Dotnet.Container.MSBuildTasks\Dotnet.Container.MSBuildTasks.csproj", "{A3F22169-A024-4E12-840A-CBAACCE7BCC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet-container", "src\dotnet-container\dotnet-container.csproj", "{62B0EFE1-52AA-4249-BB77-E2EB74DA5DAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotnet-container", "src\dotnet-container\dotnet-container.csproj", "{62B0EFE1-52AA-4249-BB77-E2EB74DA5DAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet.Container.RegistryClient", "src\Dotnet.Container.RegistryClient\Dotnet.Container.RegistryClient.csproj", "{842F2F5B-F104-4401-8FE3-BD237FDC5C13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet.Container.RegistryClient", "src\Dotnet.Container.RegistryClient\Dotnet.Container.RegistryClient.csproj", "{842F2F5B-F104-4401-8FE3-BD237FDC5C13}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D4FE7FD3-6502-47BB-AD2F-73874F458354}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

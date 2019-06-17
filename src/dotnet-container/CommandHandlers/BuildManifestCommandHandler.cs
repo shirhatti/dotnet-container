@@ -1,9 +1,9 @@
-﻿using Dotnet.Container.RegistryClient;
-using Dotnet.Container.Options;
-using System;
+﻿using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
+using Dotnet.Container.Options;
+using Dotnet.Container.RegistryClient;
 
 namespace Dotnet.Container.CommandHandlers
 {

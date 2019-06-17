@@ -1,11 +1,11 @@
-﻿using Dotnet.Container.Helpers;
-using Dotnet.Container.Options;
-using System;
+﻿using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using Dotnet.Container.Helpers;
+using Dotnet.Container.Options;
 using Process = System.Diagnostics.Process;
 
 namespace Dotnet.Container.CommandHandlers

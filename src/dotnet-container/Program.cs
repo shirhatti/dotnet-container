@@ -1,8 +1,7 @@
-﻿using Dotnet.Container.CommandHandlers;
-using System.CommandLine;
-using System.CommandLine.Builder;
+﻿using System.CommandLine.Builder;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
+using Dotnet.Container.CommandHandlers;
 
 namespace Dotnet.Container
 {
