@@ -40,7 +40,7 @@ namespace Dotnet.Container.CommandHandlers
             }
             catch (ArgumentException e)
             {
-                if (CredentialHelper.TryGetCredentials(registry, out var credential))
+                if (CredentialHelper.TryGetCredentials(registry!, out var credential))
                 {
                     username = credential!.UserName;
                     password = credential!.Password;

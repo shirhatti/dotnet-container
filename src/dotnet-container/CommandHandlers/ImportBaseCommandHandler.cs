@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.Linq;
 using System.Threading.Tasks;
 using Dotnet.Container.Options;
 using Dotnet.Container.RegistryClient;
@@ -43,7 +45,7 @@ namespace Dotnet.Container.CommandHandlers
             }
             catch (ArgumentException e)
             {
-                if (CredentialHelper.TryGetCredentials(registry, out var credential))
+                if (CredentialHelper.TryGetCredentials(registry!, out var credential))
                 {
                     username = credential!.UserName;
                     password = credential!.Password;
@@ -79,14 +81,9 @@ namespace Dotnet.Container.CommandHandlers
                     break;
             }
 
-            Parallel.ForEach(manifest.Layers, async (layer) =>
-            {
-                if (!await registryInstance.CheckIfLayerExistsAsync(repository, layer.Digest))
-                {
-                    // Layer doesn't exist. We'll need to upload it
-                    await registryInstance.CopyBlobAsync(repository, layer.Digest, mcrRegistry, "dotnet/core/runtime");
-                }
-            });
+            await Task.WhenAll(manifest.Layers.Select(layer => registryInstance.CopyBlobAsync(repository, layer.Digest, mcrRegistry, "dotnet/core/runtime")));
+            await registryInstance.CopyBlobAsync(repository, manifest.Config.Digest, mcrRegistry, "dotnet/core/runtime");
+            await registryInstance.PutManifestAsync(repository, "base", manifest);
         }
     }
 }

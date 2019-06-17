@@ -144,32 +144,6 @@ namespace Dotnet.Container.RegistryClient
             return responseJObject.ToObject<ConfigurationManifest>();
         }
 
-        public async Task<long> PutConfigBlobAsync(string name, string config, string configDigest)
-        {
-            var uri = new Uri(_registryUri, $"/v2/{name}/blobs/uploads/");
-            var request = new HttpRequestMessage(HttpMethod.Post, uri);
-            request.AddBasicAuthorizationHeader(_username, _password);
-            var response = await _httpClient.SendAsync(request);
-            if (response.StatusCode != HttpStatusCode.Accepted)
-            {
-                throw new RegistryException();
-            }
-            var location = response.Headers.GetValues("Location").FirstOrDefault();
-            uri = new Uri(_registryUri, $"{location}&digest={configDigest}");
-            Console.WriteLine("Pusing config to " + uri.ToString());
-            request = new HttpRequestMessage(HttpMethod.Post, uri);
-            request.Content = new StringContent(config);
-            var returnVal = request.Content.Headers.ContentLength.Value;
-            request.AddBasicAuthorizationHeader(_username, _password);
-            response = await _httpClient.SendAsync(request);
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new RegistryException();
-            }
-
-            return returnVal;
-        }
-
         public async Task<(long, string)> PostConfigBlobAsync(string name, ConfigurationManifest config)
         {
             // This operation makes two calls:
@@ -201,7 +175,6 @@ namespace Dotnet.Container.RegistryClient
 
             return (configSize, configDigest);
         }
-
 
         public async Task<Manifest> GetManifestAsync(string name, string reference, ManifestType manifestType)
         {

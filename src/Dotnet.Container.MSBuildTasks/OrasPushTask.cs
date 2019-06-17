@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Dotnet.Container.Helpers;
 using Microsoft.Build.Framework;
 
@@ -23,6 +25,11 @@ namespace Dotnet.Container.MSBuildTasks
         public string Password { get; set; }
 
         public override bool Execute()
+        {
+            return ExecuteAsync().Result;
+        }
+
+        private async Task<bool> ExecuteAsync()
         {
             var args = new[]
             {
