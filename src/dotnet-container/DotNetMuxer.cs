@@ -39,10 +39,12 @@ namespace Dotnet.Container
             }
 
             var mainModule = Process.GetCurrentProcess().MainModule;
-            if (!string.IsNullOrEmpty(mainModule?.FileName)
-                && Path.GetFileName(mainModule.FileName).Equals(fileName, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(mainModule?.FileName))
             {
-                return mainModule.FileName;
+                if (Path.GetFileName(mainModule.FileName)!.Equals(fileName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return mainModule.FileName;
+                }
             }
 
             return null;

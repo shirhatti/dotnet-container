@@ -90,7 +90,7 @@ namespace Dotnet.Container.CommandHandlers
 
             string FindTargetsFile()
             {
-                var assemblyDir = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+                var assemblyDir = Path.GetDirectoryName(typeof(Program).Assembly.Location)!;
                 var searchPaths = new[]
                 {
                    Path.Combine(AppContext.BaseDirectory, "assets"),

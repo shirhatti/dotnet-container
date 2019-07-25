@@ -19,7 +19,7 @@ namespace Dotnet.Container
             {
                 if (WindowsCredentials.CredRead(registry, WindowsCredentials.CRED_TYPE.GENERIC, 0, out var credPtr))
                 {
-                    var cred = (WindowsCredentials.CREDENTIAL)Marshal.PtrToStructure(credPtr, typeof(WindowsCredentials.CREDENTIAL));
+                    var cred = (WindowsCredentials.CREDENTIAL)Marshal.PtrToStructure(credPtr, typeof(WindowsCredentials.CREDENTIAL))!;
                     credential = new NetworkCredential(userName: cred.userName,
                                                        password: Marshal.PtrToStringAnsi(cred.credentialBlob, cred.credentialBlobSize));
                     return true;
