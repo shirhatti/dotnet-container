@@ -29,7 +29,7 @@ namespace Dotnet.Container.MSBuildTasks
             return ExecuteAsync().Result;
         }
 
-        private async Task<bool> ExecuteAsync()
+        private Task<bool> ExecuteAsync()
         {
             var args = new[]
             {
@@ -67,7 +67,7 @@ namespace Dotnet.Container.MSBuildTasks
                 Log.LogMessage(MessageImportance.High, tagName);
 
             }
-            return true;
+            return Task.FromResult(true);
         }
     }
 }

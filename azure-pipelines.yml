@@ -10,16 +10,23 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin -Channel release/3.0.1xx -Version 3.0.100-preview6-012264
-  displayName: 'Install .NET Core'
+- task: DotNetCoreInstaller@0
+  displayName: 'Use .NET Core 3.0'
+  inputs:
+    version: 3.0.100-preview7-012821
 
-- script: /home/vsts/.dotnet/dotnet restore Dotnet.Container.Sln
-  workingDirectory: $(Build.Repository.LocalPath)
+- task: DotNetCoreCLI@2
   displayName: 'dotnet restore'
+  inputs:
+    command: restore
+    projects: 'Dotnet.Container.Sln'
 
-- script: /home/vsts/.dotnet/dotnet pack /p:PackageOutputPath=$(Build.ArtifactStagingDirectory) /p:VersionSuffix=build$(Build.BuildNumber)
-  workingDirectory: $(Build.Repository.LocalPath)/src/dotnet-container
+- task: DotNetCoreCLI@2
   displayName: 'dotnet pack'
+  inputs:
+    command: restore
+    arguments: /p:PackageOutputPath=$(Build.ArtifactStagingDirectory) /p:VersionSuffix=build$(Build.BuildNumber)
+    projects: $(Build.Repository.LocalPath)/src/dotnet-container/dotnet-container.csproj
 
 - task: PublishPipelineArtifact@0
   displayName: 'Publish package'
