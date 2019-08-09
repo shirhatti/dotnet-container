@@ -10,7 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin -Channel release/3.0.1xx -Version 3.0.100-preview6-012264
+- script: curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin -Channel release/3.0.1xx -Version 3.0.100-preview7-012821
   displayName: 'Install .NET Core'
 
 - script: /home/vsts/.dotnet/dotnet restore Dotnet.Container.Sln
